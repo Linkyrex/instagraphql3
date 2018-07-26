@@ -122,7 +122,6 @@ type LinkSubscriptionPayload {
 input LinkSubscriptionWhereInput {
   AND: [LinkSubscriptionWhereInput!]
   OR: [LinkSubscriptionWhereInput!]
-  NOT: [LinkSubscriptionWhereInput!]
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
@@ -142,15 +141,16 @@ input LinkUpdateManyWithoutPostedByInput {
   connect: [LinkWhereUniqueInput!]
   disconnect: [LinkWhereUniqueInput!]
   delete: [LinkWhereUniqueInput!]
-  update: [LinkUpdateWithWhereUniqueWithoutPostedByInput!]
-  upsert: [LinkUpsertWithWhereUniqueWithoutPostedByInput!]
+  update: [LinkUpdateWithoutPostedByInput!]
+  upsert: [LinkUpsertWithoutPostedByInput!]
 }
 
 input LinkUpdateOneWithoutVotesInput {
   create: LinkCreateWithoutVotesInput
   connect: LinkWhereUniqueInput
-  delete: Boolean
-  update: LinkUpdateWithoutVotesDataInput
+  disconnect: LinkWhereUniqueInput
+  delete: LinkWhereUniqueInput
+  update: LinkUpdateWithoutVotesInput
   upsert: LinkUpsertWithoutVotesInput
 }
 
@@ -160,32 +160,37 @@ input LinkUpdateWithoutPostedByDataInput {
   votes: VoteUpdateManyWithoutLinkInput
 }
 
+input LinkUpdateWithoutPostedByInput {
+  where: LinkWhereUniqueInput!
+  data: LinkUpdateWithoutPostedByDataInput!
+}
+
 input LinkUpdateWithoutVotesDataInput {
   description: String
   url: String
   postedBy: UserUpdateOneWithoutLinksInput
 }
 
-input LinkUpdateWithWhereUniqueWithoutPostedByInput {
+input LinkUpdateWithoutVotesInput {
   where: LinkWhereUniqueInput!
-  data: LinkUpdateWithoutPostedByDataInput!
+  data: LinkUpdateWithoutVotesDataInput!
 }
 
-input LinkUpsertWithoutVotesInput {
-  update: LinkUpdateWithoutVotesDataInput!
-  create: LinkCreateWithoutVotesInput!
-}
-
-input LinkUpsertWithWhereUniqueWithoutPostedByInput {
+input LinkUpsertWithoutPostedByInput {
   where: LinkWhereUniqueInput!
   update: LinkUpdateWithoutPostedByDataInput!
   create: LinkCreateWithoutPostedByInput!
 }
 
+input LinkUpsertWithoutVotesInput {
+  where: LinkWhereUniqueInput!
+  update: LinkUpdateWithoutVotesDataInput!
+  create: LinkCreateWithoutVotesInput!
+}
+
 input LinkWhereInput {
   AND: [LinkWhereInput!]
   OR: [LinkWhereInput!]
-  NOT: [LinkWhereInput!]
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -261,12 +266,12 @@ type Mutation {
   upsertVote(where: VoteWhereUniqueInput!, create: VoteCreateInput!, update: VoteUpdateInput!): Vote!
   upsertLink(where: LinkWhereUniqueInput!, create: LinkCreateInput!, update: LinkUpdateInput!): Link!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyVotes(data: VoteUpdateInput!, where: VoteWhereInput): BatchPayload!
-  updateManyLinks(data: LinkUpdateInput!, where: LinkWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  deleteManyVotes(where: VoteWhereInput): BatchPayload!
-  deleteManyLinks(where: LinkWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  updateManyVotes(data: VoteUpdateInput!, where: VoteWhereInput!): BatchPayload!
+  updateManyLinks(data: LinkUpdateInput!, where: LinkWhereInput!): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
+  deleteManyVotes(where: VoteWhereInput!): BatchPayload!
+  deleteManyLinks(where: LinkWhereInput!): BatchPayload!
+  deleteManyUsers(where: UserWhereInput!): BatchPayload!
 }
 
 enum MutationType {
@@ -380,7 +385,6 @@ type UserSubscriptionPayload {
 input UserSubscriptionWhereInput {
   AND: [UserSubscriptionWhereInput!]
   OR: [UserSubscriptionWhereInput!]
-  NOT: [UserSubscriptionWhereInput!]
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
@@ -399,17 +403,18 @@ input UserUpdateInput {
 input UserUpdateOneWithoutLinksInput {
   create: UserCreateWithoutLinksInput
   connect: UserWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: UserUpdateWithoutLinksDataInput
+  disconnect: UserWhereUniqueInput
+  delete: UserWhereUniqueInput
+  update: UserUpdateWithoutLinksInput
   upsert: UserUpsertWithoutLinksInput
 }
 
 input UserUpdateOneWithoutVotesInput {
   create: UserCreateWithoutVotesInput
   connect: UserWhereUniqueInput
-  delete: Boolean
-  update: UserUpdateWithoutVotesDataInput
+  disconnect: UserWhereUniqueInput
+  delete: UserWhereUniqueInput
+  update: UserUpdateWithoutVotesInput
   upsert: UserUpsertWithoutVotesInput
 }
 
@@ -420,6 +425,11 @@ input UserUpdateWithoutLinksDataInput {
   votes: VoteUpdateManyWithoutUserInput
 }
 
+input UserUpdateWithoutLinksInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutLinksDataInput!
+}
+
 input UserUpdateWithoutVotesDataInput {
   name: String
   email: String
@@ -427,12 +437,19 @@ input UserUpdateWithoutVotesDataInput {
   links: LinkUpdateManyWithoutPostedByInput
 }
 
+input UserUpdateWithoutVotesInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutVotesDataInput!
+}
+
 input UserUpsertWithoutLinksInput {
+  where: UserWhereUniqueInput!
   update: UserUpdateWithoutLinksDataInput!
   create: UserCreateWithoutLinksInput!
 }
 
 input UserUpsertWithoutVotesInput {
+  where: UserWhereUniqueInput!
   update: UserUpdateWithoutVotesDataInput!
   create: UserCreateWithoutVotesInput!
 }
@@ -440,7 +457,6 @@ input UserUpsertWithoutVotesInput {
 input UserWhereInput {
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
-  NOT: [UserWhereInput!]
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -567,7 +583,6 @@ type VoteSubscriptionPayload {
 input VoteSubscriptionWhereInput {
   AND: [VoteSubscriptionWhereInput!]
   OR: [VoteSubscriptionWhereInput!]
-  NOT: [VoteSubscriptionWhereInput!]
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
@@ -585,8 +600,8 @@ input VoteUpdateManyWithoutLinkInput {
   connect: [VoteWhereUniqueInput!]
   disconnect: [VoteWhereUniqueInput!]
   delete: [VoteWhereUniqueInput!]
-  update: [VoteUpdateWithWhereUniqueWithoutLinkInput!]
-  upsert: [VoteUpsertWithWhereUniqueWithoutLinkInput!]
+  update: [VoteUpdateWithoutLinkInput!]
+  upsert: [VoteUpsertWithoutLinkInput!]
 }
 
 input VoteUpdateManyWithoutUserInput {
@@ -594,35 +609,35 @@ input VoteUpdateManyWithoutUserInput {
   connect: [VoteWhereUniqueInput!]
   disconnect: [VoteWhereUniqueInput!]
   delete: [VoteWhereUniqueInput!]
-  update: [VoteUpdateWithWhereUniqueWithoutUserInput!]
-  upsert: [VoteUpsertWithWhereUniqueWithoutUserInput!]
+  update: [VoteUpdateWithoutUserInput!]
+  upsert: [VoteUpsertWithoutUserInput!]
 }
 
 input VoteUpdateWithoutLinkDataInput {
   user: UserUpdateOneWithoutVotesInput
 }
 
-input VoteUpdateWithoutUserDataInput {
-  link: LinkUpdateOneWithoutVotesInput
-}
-
-input VoteUpdateWithWhereUniqueWithoutLinkInput {
+input VoteUpdateWithoutLinkInput {
   where: VoteWhereUniqueInput!
   data: VoteUpdateWithoutLinkDataInput!
 }
 
-input VoteUpdateWithWhereUniqueWithoutUserInput {
+input VoteUpdateWithoutUserDataInput {
+  link: LinkUpdateOneWithoutVotesInput
+}
+
+input VoteUpdateWithoutUserInput {
   where: VoteWhereUniqueInput!
   data: VoteUpdateWithoutUserDataInput!
 }
 
-input VoteUpsertWithWhereUniqueWithoutLinkInput {
+input VoteUpsertWithoutLinkInput {
   where: VoteWhereUniqueInput!
   update: VoteUpdateWithoutLinkDataInput!
   create: VoteCreateWithoutLinkInput!
 }
 
-input VoteUpsertWithWhereUniqueWithoutUserInput {
+input VoteUpsertWithoutUserInput {
   where: VoteWhereUniqueInput!
   update: VoteUpdateWithoutUserDataInput!
   create: VoteCreateWithoutUserInput!
@@ -631,7 +646,6 @@ input VoteUpsertWithWhereUniqueWithoutUserInput {
 input VoteWhereInput {
   AND: [VoteWhereInput!]
   OR: [VoteWhereInput!]
-  NOT: [VoteWhereInput!]
   id: ID
   id_not: ID
   id_in: [ID!]
