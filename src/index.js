@@ -31,7 +31,7 @@ const middlewareAuthLink = new ApolloLink((operation, forward) => {
 const httpLinkWithAuthToken = middlewareAuthLink.concat(httpLink)
 
 const wsLink = new WebSocketLink({
-    uri: `ws://instagraphqlserver.herokuapp.com/`,
+    uri: `wss://instagraphqlserver.herokuapp.com/`,
     options: {
         reconnect: true,
         connectionParams: {
