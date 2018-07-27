@@ -12,24 +12,30 @@ class CreateTopic extends Component {
 
     render() {
         return (
-            <div>
-                <div className="flex flex-column mt3">
+            <div className="">
+
+                <div className=" container row">
+                  <h2 className="container offset-by-three columns">Neuer Post</h2>
                     <input
-                        className="mb2"
+                        className="offset-by-three columns six columns"
                         value={this.state.url}
                         onChange={e => this.setState({ url: e.target.value })}
                         type="text"
                         placeholder="Thema"
                     />
+                </div>
+                  <div className=" container row">
                     <input
-                        className="mb2"
+                        className="offset-by-three columns six columns"
                         value={this.state.description}
                         onChange={e => this.setState({ description: e.target.value })}
                         type="text"
                         placeholder="Beschreibung"
                     />
                 </div>
-                <button onClick={() => this._createTopic()}>Submit</button>
+                <div className=" container row">
+                <button className=" offset-by-three columns six columns" onClick={() => this._createTopic()}>Submit</button>
+            </div>
             </div>
         )
     }

@@ -2,51 +2,59 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {withRouter} from 'react-router'
 import {AUTH_TOKEN} from '../constants'
+import '../styles/skeleton.css'
+import '../styles/normalize.css'
 
 class Header extends Component {
     render() {
         const authToken = localStorage.getItem(AUTH_TOKEN)
         return (
-            <div className="flex pa1 justify-between nowrap orange">
-                <div className="flex flex-fixed black">
+            <div className="">
+                <div className="">
                     {authToken && (
-                        <div className="flex">
-                            <Link to="/notes/1" className="ml1 no-underline black">
+                      <div className="container">
+
+                        <div className="row">
+                          <div className="three columns">
+                            <Link to="/notes/1" className="button button-primary ">
                                 Notizen
                             </Link>
-                            <div className="ml1">|</div>
-                            <Link to="/top" className="ml1 no-underline black">
+                          </div>
+                          <div className="three columns">
+                            <Link to="/top" className="button button-primary">
                                 Top-Notizen
                             </Link>
-                            <div className="ml1">|</div>
-                            <Link to="/search" className="ml1 no-underline black">
+                          </div>
+                          <div className="three columns">
+                            <Link to="/search" className="button button-primary">
                                 Suche
                             </Link>
-                            <div className="ml1">|</div>
-                            <Link to="/create" className="ml1 no-underline black">
-                                Erstellen
-                            </Link>
+                          </div>
+                          <div className="three columns">
+                            <div
+                                className="button button-primary"
+                                onClick={() => {
+                                    localStorage.removeItem(AUTH_TOKEN)
+                                    this.props.history.push(`/`)
+                                }}
+                            >
+                                logout
+                            </div>
+                          </div>
+                          </div>
+
+
+                            <div className="offset-by-three columns six columns">
+                                <Link to="/create" className="button">
+                                    Neuer Post
+                                </Link>
+                            </div>
                         </div>
+
+
                     )}
                 </div>
 
-                <div className="flex flex-fixed">
-                    {authToken ? (
-                        <div
-                            className="ml1 pointer black"
-                            onClick={() => {
-                                localStorage.removeItem(AUTH_TOKEN)
-                                this.props.history.push(`/`)
-                            }}
-                        >
-                            logout
-                        </div>
-                    ) : (
-                        <Link to="/login" className="ml1 no-underline black">
-                            login
-                        </Link>
-                    )}
-                </div>
             </div>
         )
     }

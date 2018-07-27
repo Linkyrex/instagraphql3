@@ -1,6 +1,6 @@
 type Vote {
   id: ID! @unique
-  link: Link!  
+  link: Link!
   user: User!
 }
 
@@ -15,7 +15,7 @@ type Link {
 
 type User {
   id: ID! @unique
-  name: String!
+  name: String! @unique
   email: String! @unique
   password: String!
   links: [Link!]!

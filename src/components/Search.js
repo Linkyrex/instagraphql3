@@ -12,14 +12,15 @@ class Search extends Component {
 
     render() {
         return (
-            <div>
-                <div>
-                    Suche
-                    <input
+            <div className="container ">
+                <div className="">
+<h2 className="container offset-by-three columns">Suche</h2>
+                    <input className=" offset-by-three columns six columns"
                         type='text'
+                        placeholder="Suchbegriff"
                         onChange={(e) => this.setState({ filter: e.target.value })}
                     />
-                    <button
+                  <button className="container offset-by-three columns six columns"
                         onClick={() => this._executeSearch()}
                     >
                         OK

@@ -8,30 +8,46 @@ class Link extends Component {
     render() {
         const authToken = localStorage.getItem(AUTH_TOKEN)
         return (
-            <div className="flex mt2 items-start">
-                <div className="flex items-center">
-                    <span className="gray">{this.props.index + 1}.</span>
-                    {authToken && (
-                        <div>
-                        <div className="ml1 gray f11" onClick={() => this._voteForLink()}>
-                            ▲
+<div className="container">
+  <div className="row">
+
+    <div className="one columns">
+      <span className="">{this.props.index + 1}.</span>
+    </div>
+
+
+                  <div className="two columns">
+                    {this.props.link.url}
+                  </div>
+
+                  <div className="three columns">
+                    {this.props.link.description}
+                  </div>
+
+                  <div className="four columns">
+                    {this.props.link.votes.length} Stimmen | von{' '}
+                    {this.props.link.postedBy
+                        ? this.props.link.postedBy.name
+                        : 'Anon'}{' '}
+                    {timeDifferenceForDate(this.props.link.createdAt)}
+                  </div>
+
+<div className="two columns">
+                  {authToken && (
+
+                        <div className="" onClick={() => this._voteForLink()}>
+                            <button className="">Vote</button>
                         </div>
-                        </div>
+
                         )}
                 </div>
-                <div className="ml1">
-                    <div>
-                        {this.props.link.url}:<br /><i>{this.props.link.description}</i>
-                    </div>
-                    <div className="f6 lh-copy gray">
-                        {this.props.link.votes.length} votes | by{' '}
-                        {this.props.link.postedBy
-                            ? this.props.link.postedBy.name
-                            : 'Unknown'}{' '}
-                        {timeDifferenceForDate(this.props.link.createdAt)}
-                    </div>
-                </div>
-            </div>
+
+</div>
+<hr></hr>
+</div>
+
+
+
         )
     }
 

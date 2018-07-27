@@ -159,7 +159,15 @@ class LinkList extends Component {
 
         return (
             <div>
+              {isNewPage?
+              <h2 className="container offset-by-one columns">Posts</h2>
+              :
+              <h2 className="container offset-by-one columns">Top Posts</h2>
+            }
+            <hr></hr>
                 <div>
+
+
                     {linksToRender.map((link, index) => (
                         <Link
                             key={link.id}
@@ -170,10 +178,15 @@ class LinkList extends Component {
                         />
                     ))}
                 </div>
+
                 {isNewPage &&
-                <div className='flex ml4 mv3 gray'>
-                    <div className='pointer mr2' onClick={() => this._previousPage()}>Previous</div>
-                    <div className='pointer' onClick={() => this._nextPage()}>Next</div>
+                <div className='offset-by-two columns row'>
+                    <div className="four columns" onClick={() => this._previousPage()}>
+  <button className="">Zurück</button>
+                    </div>
+                    <div className='four columns' onClick={() => this._nextPage()}>
+  <button className="">Weiter</button>
+                    </div>
                 </div>
                 }
             </div>
