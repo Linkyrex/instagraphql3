@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { AUTH_TOKEN } from '../constants'
 import { timeDifferenceForDate } from '../utils'
 import { graphql } from 'react-apollo'
+import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 
 class Link extends Component {
     render() {
         const authToken = localStorage.getItem(AUTH_TOKEN)
         return (
-<div className="container">
+<div className="">
   <div className="row">
 
     <div className="one columns">
@@ -24,7 +25,7 @@ class Link extends Component {
                     {this.props.link.description}
                   </div>
 
-                  <div className="four columns">
+                  <div className="three columns">
                     {this.props.link.votes.length} Stimmen | von{' '}
                     {this.props.link.postedBy
                         ? this.props.link.postedBy.name
@@ -32,7 +33,7 @@ class Link extends Component {
                     {timeDifferenceForDate(this.props.link.createdAt)}
                   </div>
 
-<div className="two columns">
+<div className="ones column">
                   {authToken && (
 
                         <div className="" onClick={() => this._voteForLink()}>
@@ -41,6 +42,16 @@ class Link extends Component {
 
                         )}
                 </div>
+
+                <div className="ones column">
+                                  {authToken && (
+
+                                        <div className="" onClick={() => this._deleteLink()}>
+                                            <button className="">DEL</button>
+                                        </div>
+
+                                        )}
+                                </div>
 
 </div>
 <hr></hr>
@@ -63,7 +74,7 @@ class Link extends Component {
         })
     }
 
-   /* _deleteLink = async () => {
+   _deleteLink = async () => {
         console.log("wurde geklickt")
         const linkId = this.props.link.id
         await this.props.deleteMutation({
@@ -74,17 +85,17 @@ class Link extends Component {
                 this.props.updateStoreAfterDelete(store, del, linkId)
             },
         })
-    }*/
+    }
 }
 
 
-/*const DELETE_LINK = gql`
+const DELETE_LINK = gql`
   mutation deleteLink($linkId: ID!) {
     deleteLink(linkId: $linkId) {
       id
      }
    }
-`*/
+`
 
 const VOTE_MUTATION = gql`
   mutation VoteMutation($linkId: ID!) {
@@ -107,4 +118,4 @@ const VOTE_MUTATION = gql`
 
 export default graphql(VOTE_MUTATION, {
     name: 'voteMutation',
-}, /*DELETE_LINK, {name: 'deleteMutation',}*/)(Link)
+}, DELETE_LINK, {name: 'deleteMutation',})(Link)

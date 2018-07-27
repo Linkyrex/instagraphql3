@@ -158,13 +158,15 @@ class LinkList extends Component {
 
 
         return (
-            <div>
+            <div className="container">
+
               {isNewPage?
-              <h2 className="container offset-by-one columns">Posts</h2>
+              <h2 className="">Posts<hr></hr></h2>
               :
-              <h2 className="container offset-by-one columns">Top Posts</h2>
+              <h2 className="">Top Posts<hr></hr></h2>
             }
-            <hr></hr>
+
+
                 <div>
 
 
