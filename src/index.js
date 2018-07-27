@@ -14,6 +14,7 @@ import { ApolloLink, split } from 'apollo-client-preset'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
 
+
 const httpLink = new HttpLink({ uri: 'http://localhost:4000' })
 
 const middlewareAuthLink = new ApolloLink((operation, forward) => {

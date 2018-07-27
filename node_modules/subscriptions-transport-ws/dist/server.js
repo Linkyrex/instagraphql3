@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var WebSocket = require("ws");
 var message_types_1 = require("./message-types");
 var protocol_1 = require("./protocol");
-var isObject = require("lodash.isobject");
+var is_object_1 = require("./utils/is-object");
 var graphql_1 = require("graphql");
 var empty_iterable_1 = require("./utils/empty-iterable");
 var iterall_1 = require("iterall");
@@ -164,7 +164,7 @@ var SubscriptionServer = (function () {
                             query: parsedMessage.payload.query,
                             variables: parsedMessage.payload.variables,
                             operationName: parsedMessage.payload.operationName,
-                            context: isObject(initResult) ? Object.assign(Object.create(Object.getPrototypeOf(initResult)), initResult) : {},
+                            context: is_object_1.default(initResult) ? Object.assign(Object.create(Object.getPrototypeOf(initResult)), initResult) : {},
                             formatResponse: undefined,
                             formatError: undefined,
                             callback: undefined,

@@ -1,6 +1,6 @@
 {
   "name": "instagraphql3",
-  "homepage":  "https://webuser.hs-furtwangen.de/~allmendi/Aufgabe_Final",
+  "homepage": "https://webuser.hs-furtwangen.de/~allmendi/aufgabef",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,7 +15,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "subscriptions-transport-ws": "^0.9.11"
+    "subscriptions-transport-ws": "^0.9.13"
   },
   "scripts": {
     "start": "react-scripts start",
